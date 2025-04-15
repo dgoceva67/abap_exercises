@@ -5,9 +5,9 @@ class lcl_helper_class definition.
 
   public section.
 
-    CLASS-DATA r_output TYPE string.
-    CLASS-DATA: cdate TYPE d,
-                ctime TYPE t.
+    CLASS-DATA r_output TYPE string .
+    CLASS-DATA: cdate TYPE d ,
+                ctime TYPE t .
 
     CLASS-METHODS init_travel_table.
     CLASS-METHODS is_empty_table
