@@ -1,22 +1,23 @@
-@AccessControl.authorizationCheck: #CHECK
 @EndUserText.label: 'Travel BO projection view'
+@AccessControl.authorizationCheck: #CHECK
 @Search.searchable: true
 @Metadata.allowExtensions: true
-define root view entity ZC_RAP_TRAVEL_101
-  as projection on ZI_RAP_TRAVEL_101 as Travel
+
+define root view entity ZC_RAP_Travel_101
+  as projection on ZI_RAP_Travel_101 as Travel
 {
-  key TravelUuid,
+  key TravelUUID,
       @Search.defaultSearchElement: true
-      TravelId,
-      @Consumption.valueHelpDefinition: [{ entity: { name: '/DMO/I_Agency', element: 'AgencyID' } }]
-      @ObjectModel.text.element: [ 'AgencyName' ]
+      TravelID,
+      @Consumption.valueHelpDefinition: [{ entity: { name: '/DMO/I_Agency', element: 'AgencyID'} }]
+      @ObjectModel.text.element: ['AgencyName']
       @Search.defaultSearchElement: true
-      AgencyId,
+      AgencyID,
       _Agency.Name       as AgencyName,
-      @Consumption.valueHelpDefinition: [{ entity: { name: '/DMO/I_Customer', element: 'CustomerID' } }]
-      @ObjectModel.text.element: [ 'CustomerName' ]
+      @Consumption.valueHelpDefinition: [{ entity: { name: '/DMO/I_Customer', element: 'CustomerID'} }]
+      @ObjectModel.text.element: ['CustomerName']
       @Search.defaultSearchElement: true
-      CustomerId,
+      CustomerID,
       _Customer.LastName as CustomerName,
       BeginDate,
       EndDate,
@@ -24,15 +25,16 @@ define root view entity ZC_RAP_TRAVEL_101
       BookingFee,
       @Semantics.amount.currencyCode: 'CurrencyCode'
       TotalPrice,
-      @Consumption.valueHelpDefinition: [{ entity: { name: 'I_Currency', element: 'Currency' } }]
+      @Consumption.valueHelpDefinition: [{ entity: { name: 'I_Currency', element: 'Currency'} }]
       CurrencyCode,
       Description,
       TravelStatus,
       LastChangedAt,
       LocalLastChangedAt,
+
       /* Associations */
       _Agency,
-      _Booking : redirected to composition child ZC_RAP_BOOKING_101,
+      _Booking : redirected to composition child ZC_RAP_Booking_101,
       _Currency,
-      _Customer
+      _Customer   
 }

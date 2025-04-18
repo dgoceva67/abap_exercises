@@ -1,18 +1,18 @@
 @AccessControl.authorizationCheck: #CHECK
 @EndUserText.label: 'Booking BO view'
-define view entity ZI_RAP_BOOKING_101
+define view entity ZI_RAP_Booking_101
   as select from zrap_abook_101 as Booking
+ 
+  association to parent ZI_RAP_TRAVEL_101        as _Travel     on  $projection.TravelUUID = _Travel.TravelUuid
 
-  association to parent ZI_RAP_TRAVEL_101 as _Travel     on  $projection.TravelUUID = _Travel.TravelUuid
-
-  association [1..1] to /DMO/I_Customer   as _Customer   on  $projection.CustomerID = _Customer.CustomerID
-  association [1..1] to /DMO/I_Carrier    as _Carrier    on  $projection.CarrierID = _Carrier.AirlineID
-  association [1..1] to /DMO/I_Connection as _Connection on  $projection.CarrierID    = _Connection.AirlineID
-                                                         and $projection.ConnectionID = _Connection.ConnectionID
-  association [1..1] to /DMO/I_Flight     as _Flight     on  $projection.CarrierID    = _Flight.AirlineID
-                                                         and $projection.ConnectionID = _Flight.ConnectionID
-                                                         and $projection.FlightDate   = _Flight.FlightDate
-  association [0..1] to I_Currency        as _Currency   on  $projection.CurrencyCode = _Currency.Currency
+  association [1..1] to /DMO/I_Customer           as _Customer   on  $projection.CustomerID   = _Customer.CustomerID
+  association [1..1] to /DMO/I_Carrier            as _Carrier    on  $projection.CarrierID    = _Carrier.AirlineID
+  association [1..1] to /DMO/I_Connection         as _Connection on  $projection.CarrierID    = _Connection.AirlineID
+                                                                 and $projection.ConnectionID = _Connection.ConnectionID
+  association [1..1] to /DMO/I_Flight             as _Flight     on  $projection.CarrierID    = _Flight.AirlineID
+                                                                 and $projection.ConnectionID = _Flight.ConnectionID
+                                                                 and $projection.FlightDate   = _Flight.FlightDate
+  association [0..1] to I_Currency                as _Currency   on $projection.CurrencyCode    = _Currency.Currency    
 {
   key booking_uuid          as BookingUUID,
       travel_uuid           as TravelUUID,

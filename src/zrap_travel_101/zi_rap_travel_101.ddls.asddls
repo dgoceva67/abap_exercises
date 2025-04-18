@@ -1,17 +1,18 @@
 @AccessControl.authorizationCheck: #CHECK
 @EndUserText.label: 'Travel BO view'
-define root view entity ZI_RAP_TRAVEL_101
+define root view entity ZI_RAP_Travel_101
   as select from zrap_atrav_101 as Travel
+ 
+  composition [0..*] of ZI_RAP_Booking_101 as _Booking
 
-  composition [0..*] of ZI_RAP_BOOKING_101 as _Booking  
-  association [0..1] to /DMO/I_Agency      as _Agency   on $projection.AgencyId = _Agency.AgencyID
-  association [0..1] to /DMO/I_Customer    as _Customer on $projection.CustomerId = _Customer.CustomerID
-  association [0..1] to I_Currency         as _Currency on $projection.CurrencyCode = _Currency.Currency
+  association [0..1] to /DMO/I_Agency       as _Agency   on $projection.AgencyID = _Agency.AgencyID
+  association [0..1] to /DMO/I_Customer     as _Customer on $projection.CustomerID = _Customer.CustomerID
+  association [0..1] to I_Currency          as _Currency on $projection.CurrencyCode = _Currency.Currency  
 {
-  key travel_uuid           as TravelUuid,
-      travel_id             as TravelId,
-      agency_id             as AgencyId,
-      customer_id           as CustomerId,
+  key travel_uuid           as TravelUUID,
+      travel_id             as TravelID,
+      agency_id             as AgencyID,
+      customer_id           as CustomerID,
       begin_date            as BeginDate,
       end_date              as EndDate,
       @Semantics.amount.currencyCode: 'CurrencyCode'
@@ -31,11 +32,10 @@ define root view entity ZI_RAP_TRAVEL_101
       last_changed_at       as LastChangedAt,
       @Semantics.systemDateTime.localInstanceLastChangedAt: true
       local_last_changed_at as LocalLastChangedAt,
-
-
+      
       /* associations */
       _Booking,
       _Agency,
       _Customer,
-      _Currency
+      _Currency      
 }
